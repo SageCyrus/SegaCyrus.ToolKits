@@ -1,0 +1,112 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+		<!--<TargetFrameworks Condition=" '$(Configuration)' == 'Debug' ">net45;net451;net452;net8.0;net10.0;</TargetFrameworks>-->
+		<TargetFrameworks>net45;net451;net452;net8.0;</TargetFrameworks>
+        <UserSecretsId>4aad6aeb-aa5b-4844-bdb8-96289cdf33a4</UserSecretsId>
+        <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+        <Authors>SegaCyrus</Authors>
+        <PackageProjectUrl>https://github.com/SageCyrus/SegaCyrus.ToolKits</PackageProjectUrl>
+        <PackageIcon>icon.jpg</PackageIcon>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/SageCyrus/SegaCyrus.ToolKits</RepositoryUrl>
+        <PackageReleaseNotes>SEGA CYRUS'S TOOL KITS</PackageReleaseNotes>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+        <SignAssembly>False</SignAssembly>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+        <Version>1.0.0</Version>
+        <Title>ToolKit</Title>
+        <Description>ToolKit Package</Description>
+        <Copyright>SegaCyrus</Copyright>
+        <PackageTags>ToolKit</PackageTags>
+    </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net451|AnyCPU'">
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net452|AnyCPU'">
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net452|AnyCPU'">
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+		<DebugType>none</DebugType>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0|AnyCPU'">
+		<DebugType>portable</DebugType>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net10.0|AnyCPU'">
+		<DebugType>none</DebugType>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugType>none</DebugType>
+        <DocumentationFile>bin\Release\SegaCyrus.ToolKits.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\ExtFile\icon.jpg">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\LICENSE.txt">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\readme.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="('$(TargetFramework)' == 'net45') Or ('$(TargetFramework)' == 'net451') Or ('$(TargetFramework)' == 'net452')">
+		<PackageReference Include="NPOI" Version="2.5.6" />
+		<Reference Include="System.Configuration" Version="4.0.0.0" />
+		<Reference Include="System.Net.Http" />
+		<PackageReference Include="System.Runtime.Caching" Version="4.7.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="('$(TargetFramework)' == 'net8.0') Or ('$(TargetFramework)' == 'net10.0')">
+		<PackageReference Include="NPOI" Version="2.7.4" />
+		<PackageReference Include="System.Runtime.Caching" Version="10.0.0" />
+	</ItemGroup>
+	
+</Project>
