@@ -216,7 +216,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <returns>MD5结果</returns>
         public static string MD5Hash(byte[] data)
         {
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
             var hashBytes = MD5.HashData(data);
             return Convert.ToHexString(hashBytes).ToLowerInvariant();
 #else 
@@ -254,7 +254,7 @@ namespace SegaCyrus.ToolKits.Kit
         public static string SHA256Hash(byte[] data)
         {
             AssertKit.AssertNotNull(data, nameof(data));
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
             byte[] hashValue = SHA256.HashData(data);
             // Convert.ToHexString 默认大写，统一转小写，保证跨框架一致
             return Convert.ToHexString(hashValue).ToLowerInvariant();
@@ -267,7 +267,7 @@ namespace SegaCyrus.ToolKits.Kit
 #endif
         }
 
-#if !NET8_0_OR_GREATER
+#if !NET6_0_OR_GREATER
         /// <summary>
         /// 字节数组转十六进制字符串
         /// </summary>

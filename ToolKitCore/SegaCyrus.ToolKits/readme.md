@@ -100,22 +100,19 @@
 > 所有 `*Async` 方法在非 2xx 状态码时抛 `HttpRequestException`;连接失败同样抛 `HttpRequestException`。
 
 ### 5. SerializeKit — 序列化 / 反序列化工具包
-全部 `public static`。
+
+```net6.0后json序列化采用System.Text.Json.JsonSerializer```
 
 | 方法签名 | 说明 |
 |---|---|
-| `string GetFormatDataContract<T>(T obj, int spaceCount = 4)` | `DataContractSerializer` 格式化 XML |
-| `string GetDataContract<T>(T data)` | `DataContractSerializer` 序列化 |
 | `string GetJSON<T>(T obj)` | Newtonsoft JSON 序列化(非格式化) |
 | `string GetXML<T>(T obj)` | `XmlSerializer` 序列化 |
 | `string GetFormatXML<T>(T obj, int spaceCount = 4)` | 格式化 XML |
 | `string GetFormatJSON<T>(T obj, int spaceCount = 4)` | 格式化 JSON(`null` 时返回 `string.Empty`) |
 | `T DeserializeXML<T>(string xml)` | XML → 强模型 |
 | `T DeserializeJSON<T>(string json)` | JSON → 强模型 |
-| `T DeserializeDataContract<T>(string dataContract)` | DataContract → 强模型 |
 | `object DeserializeXML(string xml, Type type)` | XML → 指定类型 |
 | `object DeserializeJSON(string json, Type type)` | JSON → 指定类型 |
-| `object DeserializeDataContract(string dataContract, Type type)` | DataContract → 指定类型 |
 
 ### 6. CacheKit — 简单缓存工具包(基于 `MemoryCache`)
 全部 `public static`。
@@ -202,6 +199,7 @@
 线程安全(共享随机源:`net8` 用 `Random.Shared`,其余用 `[ThreadStatic]`)。
 
 **数值 / 布尔**
+
 | 方法签名 | 说明 |
 |---|---|
 | `int NextInt(int min = 0, int max = int.MaxValue)` | 随机整数 `[min, max)` |
@@ -212,6 +210,7 @@
 | `bool NextBool(double trueProbability = 0.5)` | 随机布尔(可设 true 概率) |
 
 **字符 / 字符串**
+
 | 方法签名 | 说明 |
 |---|---|
 | `char NextChar(string pool = ConstCharPools.AlphaNumeric)` | 字符池随机取一字符 |
@@ -223,6 +222,7 @@
 | `T NextDefinedEnum<T>() where T : struct` | 随机已定义枚举值 |
 
 **Guid / 时间**
+
 | 方法签名 | 说明 |
 |---|---|
 | `Guid NextGuid()` | 随机 Guid |
@@ -232,6 +232,7 @@
 | `TimeSpan NextTimeSpan(TimeSpan? min = null, TimeSpan? max = null)` | 随机 TimeSpan |
 
 **集合**
+
 | 方法签名 | 说明 |
 |---|---|
 | `T NextItem<T>(T[] array)` / `T NextItem<T>(IList<T> list)` / `T NextItem<T>(IEnumerable<T> source)` | 随机取一个元素 |
@@ -243,6 +244,7 @@
 | `double[] NextStratifiedSample(double min, double max, int strata)` | 分层采样 |
 
 **颜色 / 图像**
+
 | 方法签名 | 说明 |
 |---|---|
 | `Color NextColor(bool withAlpha = true)` | 随机颜色(含透明) |
@@ -250,6 +252,7 @@
 | `byte[] NextImage(int width, int height, ImageFormat format, int elementCount = 10, Color? backgroundColor = null)` | 随机验证码风格图片字节(**仅 net45/451/452**;net8 不可用) |
 
 **模型构造**
+
 | 方法签名 | 说明 |
 |---|---|
 | `T NextModel<T>()` / `object NextModel(Type type)` | 反射构造完全随机对象 |
@@ -257,6 +260,7 @@
 | `RandomModelBuilder<T> BuildModel<T>()` | 进入声明式构建器 |
 
 **工具 / 概率分布 / 国际化 / 数据模拟**
+
 | 方法签名 | 说明 |
 |---|---|
 | `bool Roll(double probability)` | 按概率返回 true(= `NextBool`) |
@@ -293,6 +297,7 @@
 基于 `SpreadSheetProxy` 策略工厂,支持 CSV / Excel / 文本表格读写。返回值类型由 `configArgs` 决定(CSV/文本 → `string`,Excel → `byte[]`)。
 
 **写入**
+
 | 方法签名 | 说明 |
 |---|---|
 | `object WriteSpreadSheet<TKey, TValue>(WriteConfigSpreadSheetArgs configArgs, IEnumerable<Dictionary<TKey, TValue>> data)` | 字典集合写入 |
@@ -303,6 +308,7 @@
 | `WriteSpreadSheetHandle WriteSpreadSheetHandle(WriteConfigSpreadSheetArgs configArgs, DataTable data, WriteSpreadSheetHandle handle = null)` | 同上(DataTable) |
 
 **读取**
+
 | 方法签名 | 说明 |
 |---|---|
 | `List<TData> ReadModel<TData>(ReadSpreadSheetArgs args)` | 读取到强模型 |
@@ -334,13 +340,6 @@
 | `int ReadOffset(ref byte[] target, long offsetIndex, int lenght)` | 按偏移读取(填充 `target`,返回实际读取量) |
 | `byte[] ReadOffset(long offsetIndex, int lenght, out int size)` | 按偏移读取(返回字节与读取量) |
 
-### 17. LabsKit(`Kit.Labs`)— 实验性工具包 ⚠️ `[Obsolete]`
-| 方法签名 | 说明 |
-|---|---|
-| `JsonDifferenceModelResult CompareModelByJson<T>(T source, T target)` | 按 JSON 对比两对象差异 |
-| `JsonDifferenceModelResult CompareJson(JToken source, JToken target)` | JSON 差异对比(部分类型未实现,谨慎使用) |
-
----
 
 ## 二、`Extension` 命名空间(便捷扩展方法)
 
@@ -469,7 +468,6 @@
 ## 四、使用注意 / 已知事项
 
 1. **AES(已修复)**:`key` 现为 16/24/32 字节规范化(默认 32 字符 key → AES-256),不再截断为 16 字节;`iv` 为空(CBC)时生成随机 IV 并前置。⚠️ 旧版"零 IV、无前置"的密文与新版不兼容,需用新逻辑重新加密。
-2. **LabsKit** 标记 `[Obsolete]`,部分类型对比未实现,谨慎使用。
-3. **net8.0** 下 `RandomKit.NextImage` 等依赖 `System.Drawing.Common` 的方法不可用(条件编译排除)。
-4. `SerializeKit.GetJSON` 使用 Newtonsoft 默认设置(保留 null);`GetFormatJSON` 对 `null` 返回 `string.Empty`。
-5. `CommonKit.ExecuteWithoutException` 为显式吞异常工具,调用方需自行确认适用场景。
+2. **net8.0** 下 `RandomKit.NextImage` 等依赖 `System.Drawing.Common` 的方法不可用(条件编译排除)。
+3. `SerializeKit.GetJSON` 使用 Newtonsoft 默认设置(保留 null);`GetFormatJSON` 对 `null` 返回 `string.Empty`。
+4. `CommonKit.ExecuteWithoutException` 为显式吞异常工具,调用方需自行确认适用场景。

@@ -152,7 +152,7 @@ namespace SegaCyrus.ToolKits.Package.SpreadSheetPackage.Policy
             else if (args.ExcelType == ExcelTypeEnum.ExtXlsx)
             {
                 var t = sheet2 as SXSSFSheet;
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
                 t.TabColor = new XSSFColor(SixLabors.ImageSharp.Color.DarkRed);
                 workbook.SetSheetHidden(workbook.NumberOfSheets - 1, SheetVisibility.VeryHidden);
 #else
@@ -162,7 +162,7 @@ namespace SegaCyrus.ToolKits.Package.SpreadSheetPackage.Policy
             else
             {
                 var t = sheet2 as XSSFSheet;
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
                 t.TabColor = new XSSFColor(SixLabors.ImageSharp.Color.DarkRed);
 #else
                 t.SetTabColor(10);
@@ -170,7 +170,7 @@ namespace SegaCyrus.ToolKits.Package.SpreadSheetPackage.Policy
             }
 
             if (args.HideDataSourceSheet)
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
                 workbook.SetSheetHidden(workbook.NumberOfSheets - 1,SheetVisibility.VeryHidden);
 #else
                 workbook.SetSheetHidden(workbook.NumberOfSheets - 1, SheetState.VeryHidden);

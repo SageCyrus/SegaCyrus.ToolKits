@@ -130,7 +130,7 @@ namespace SegaCyrus.ToolKits.Kit
 
             for (var i = 0; i < args.Length; ++i)
             {
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
                 if (args[i].StartsWith('-'))
 #else
                 if (args[i].StartsWith("-"))
@@ -188,7 +188,7 @@ namespace SegaCyrus.ToolKits.Kit
                                 new[] { fieldInfo.PropertyType.GenericTypeArguments[0] });
                             for (i = i + 1; i < args.Length; ++i)
                             {
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
                                 if (!args[i].StartsWith('-'))
 #else
                                 if (!args[i].StartsWith("-"))

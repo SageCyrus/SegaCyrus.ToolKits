@@ -3,7 +3,7 @@ using SegaCyrus.ToolKits.Package.RandomPackage;
 using SegaCyrus.ToolKits.Package.RandomPackage.Builder;
 using System;
 using System.Collections.Generic;
-#if !NET8_0_OR_GREATER
+#if !NET6_0_OR_GREATER
 using System.Drawing;
 using System.Drawing.Imaging;
 #endif
@@ -22,7 +22,7 @@ namespace SegaCyrus.ToolKits.Kit
 
         #region 随机源（线程安全）
 
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
         private static Random Shared
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -65,7 +65,7 @@ namespace SegaCyrus.ToolKits.Kit
         {
             AssertKit.AssertFalse(min >= max, "min >= max", "min must be less than max");
 
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
             return Shared.NextInt64(min, max);
 #else
             ulong range = (ulong)(max - min);
@@ -458,7 +458,7 @@ namespace SegaCyrus.ToolKits.Kit
 
         #region 图像
 
-#if !NET8_0_OR_GREATER
+#if !NET6_0_OR_GREATER
         /// <summary>
         /// 生成随机颜色（含透明度）。
         /// </summary>

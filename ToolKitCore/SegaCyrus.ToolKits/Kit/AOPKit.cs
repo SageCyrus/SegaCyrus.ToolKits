@@ -83,7 +83,7 @@ namespace SegaCyrus.ToolKits.Kit
                 .OrderBy(i => i.Order)
                 .ToList();
 
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
             return AOPDispatchProxy<TInterface>.Create(target, interfaceType, sortedInterceptors, methodFilter);
 #else
             var realProxy = new AOPRealProxy<TInterface>(target, interfaceType, sortedInterceptors, methodFilter);

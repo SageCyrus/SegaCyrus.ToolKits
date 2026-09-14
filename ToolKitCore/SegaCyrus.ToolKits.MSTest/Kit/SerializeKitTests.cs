@@ -116,38 +116,5 @@ namespace SegaCyrus.ToolKits.MSTest.Kit
 
         #endregion
 
-        #region DataContract
-
-        [TestMethod]
-        public void GetDataContract_DeserializeDataContract_RoundTrip()
-        {
-            var sample = new DataContractSample { Id = 1, Name = "abc", Values = new List<int> { 1, 2, 3 } };
-            var xml = SerializeKit.GetDataContract(sample);
-            StringAssert.Contains(xml, "abc");
-            var restored = SerializeKit.DeserializeDataContract<DataContractSample>(xml);
-            Assert.AreEqual(1, restored.Id);
-            Assert.AreEqual("abc", restored.Name);
-            CollectionAssert.AreEqual(new List<int> { 1, 2, 3 }, restored.Values);
-        }
-
-        [TestMethod]
-        public void GetFormatDataContract_ContainsIndent()
-        {
-            var sample = new DataContractSample { Id = 5, Name = "n" };
-            var xml = SerializeKit.GetFormatDataContract(sample);
-            StringAssert.Contains(xml, Environment.NewLine);
-        }
-
-        [TestMethod]
-        public void GetDataContract_DeserializeDataContract_WithType_RoundTrip()
-        {
-            var sample = new DataContractSample { Id = 9, Name = "z" };
-            var xml = SerializeKit.GetDataContract(sample);
-            var obj = (DataContractSample)SerializeKit.DeserializeDataContract(xml, typeof(DataContractSample));
-            Assert.AreEqual(9, obj.Id);
-            Assert.AreEqual("z", obj.Name);
-        }
-
-        #endregion
     }
 }
