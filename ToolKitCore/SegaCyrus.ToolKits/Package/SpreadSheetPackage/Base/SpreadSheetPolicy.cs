@@ -892,7 +892,7 @@ namespace SegaCyrus.ToolKits.Package.SpreadSheetPackage.Base
 
             var typeDefine = typeof(T);
 
-            var mapData = new Dictionary<int, Tuple<ExpressionGetSetModel<T, object>, Func<string, object>>>();
+            var mapData = new Dictionary<int, Tuple<ExpressionGetSetHandle<T, object>, Func<string, object>>>();
 
             if (hasHead)
             {
@@ -941,7 +941,7 @@ namespace SegaCyrus.ToolKits.Package.SpreadSheetPackage.Base
         /// </summary>
         /// <typeparam name="T">类</typeparam>
         /// <returns>读取列表</returns>
-        protected List<Tuple<string, int?, PropertyInfo, ExpressionGetSetModel<T, object>>> GetReadPropertyListExpressTree<T>()
+        protected List<Tuple<string, int?, PropertyInfo, ExpressionGetSetHandle<T, object>>> GetReadPropertyListExpressTree<T>()
         {
             var type = typeof(T);
             return type.GetProperties()
@@ -1002,7 +1002,7 @@ namespace SegaCyrus.ToolKits.Package.SpreadSheetPackage.Base
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        protected virtual List<Tuple<string, PropertyInfo, ExpressionGetSetModel<T, object>>> GetWritePropertyExpressTreeList<T>()
+        protected virtual List<Tuple<string, PropertyInfo, ExpressionGetSetHandle<T, object>>> GetWritePropertyExpressTreeList<T>()
         {
             var order = 0;
             var type = typeof(T);

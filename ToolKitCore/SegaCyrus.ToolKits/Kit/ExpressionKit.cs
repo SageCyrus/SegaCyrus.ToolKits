@@ -30,7 +30,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="type">实例类型</param>
         /// <param name="fieldName">字段名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, FieldType> CreateFieldExpressWithoutCache<InstanceType, FieldType>(Type type, string fieldName)
+        public static ExpressionGetSetHandle<InstanceType, FieldType> CreateFieldExpressWithoutCache<InstanceType, FieldType>(Type type, string fieldName)
         {
             AssertKit.AssertNotNull(type, nameof(type));
             var fieldInfo = type.GetField(fieldName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -58,7 +58,7 @@ namespace SegaCyrus.ToolKits.Kit
             var lambdaGet = Expression.Lambda<Func<InstanceType, FieldType>>(getLambda, parameter);
             var getter = lambdaGet.Compile();
 
-            return new ExpressionGetSetModel<InstanceType, FieldType>(fieldName, setter, getter);
+            return new ExpressionGetSetHandle<InstanceType, FieldType>(fieldName, setter, true, getter, true);
         }
         /// <summary>
         /// 生成指定类型下指定属性的Get和Set访问器 不带缓存
@@ -68,7 +68,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="instance">实例</param>
         /// <param name="fieldName">字段名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, FieldType> CreateFieldExpressWithoutCache<InstanceType, FieldType>(InstanceType instance, string fieldName)
+        public static ExpressionGetSetHandle<InstanceType, FieldType> CreateFieldExpressWithoutCache<InstanceType, FieldType>(InstanceType instance, string fieldName)
         {
             return CreateFieldExpressWithoutCache<InstanceType, FieldType>(typeof(InstanceType), fieldName);
         }
@@ -81,7 +81,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="type">实例类型</param>
         /// <param name="fieldName">字段名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, FieldType> CreateFieldExpress<InstanceType, FieldType>(Type type, string fieldName)
+        public static ExpressionGetSetHandle<InstanceType, FieldType> CreateFieldExpress<InstanceType, FieldType>(Type type, string fieldName)
         {
             AssertKit.AssertNotNull(type, nameof(type));
 
@@ -102,7 +102,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="instance">实例</param>
         /// <param name="fieldName">字段名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, FieldType> CreateFieldExpress<InstanceType, FieldType>(InstanceType instance, string fieldName)
+        public static ExpressionGetSetHandle<InstanceType, FieldType> CreateFieldExpress<InstanceType, FieldType>(InstanceType instance, string fieldName)
         {
             var rInstanceTypeFullName = typeof(InstanceType).FullName;
             var rFieldTypeFullName = typeof(FieldType).FullName;
@@ -123,7 +123,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="type">实例类型</param>
         /// <param name="propertyName">属性名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, PropertyType> CreatePropertyExpressWithoutCache<InstanceType, PropertyType>(Type type, string propertyName)
+        public static ExpressionGetSetHandle<InstanceType, PropertyType> CreatePropertyExpressWithoutCache<InstanceType, PropertyType>(Type type, string propertyName)
         {
             AssertKit.AssertNotNull(type, nameof(type));
             var property = type.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -152,7 +152,7 @@ namespace SegaCyrus.ToolKits.Kit
                 if (inputPropertyType != property.PropertyType)
                     v = Expression.Convert(v, property.PropertyType);
 
-                if (setter != null)
+                if (setterFunc != null)
                 {
                     var propertyCall = Expression.Call(p, setterFunc, v);
                     var lambda = Expression.Lambda<Action<InstanceType, PropertyType>>(propertyCall, parameter, valueExpr);
@@ -165,7 +165,7 @@ namespace SegaCyrus.ToolKits.Kit
                     getter = lambda.Compile();
                 }
             }
-            return new ExpressionGetSetModel<InstanceType, PropertyType>(propertyName, setter, getter);
+            return new ExpressionGetSetHandle<InstanceType, PropertyType>(propertyName, setter, setterFunc != null, getter, getterFunc != null);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="instance">实例</param>
         /// <param name="propertyName">属性名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, PropertyType> CreatePropertyExpressWithoutCache<InstanceType, PropertyType>(InstanceType instance, string propertyName)
+        public static ExpressionGetSetHandle<InstanceType, PropertyType> CreatePropertyExpressWithoutCache<InstanceType, PropertyType>(InstanceType instance, string propertyName)
         {
             return CreatePropertyExpressWithoutCache<InstanceType, PropertyType>(typeof(InstanceType), propertyName);
         }
@@ -188,7 +188,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="type">实例类型</param>
         /// <param name="propertyName">属性名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, PropertyType> CreatePropertyExpress<InstanceType, PropertyType>(Type type, string propertyName)
+        public static ExpressionGetSetHandle<InstanceType, PropertyType> CreatePropertyExpress<InstanceType, PropertyType>(Type type, string propertyName)
         {
             AssertKit.AssertNotNull(type, nameof(type));
 
@@ -209,7 +209,7 @@ namespace SegaCyrus.ToolKits.Kit
         /// <param name="instance">实例</param>
         /// <param name="propertyName">属性名</param>
         /// <returns>访问器</returns>
-        public static ExpressionGetSetModel<InstanceType, PropertyType> CreatePropertyExpress<InstanceType, PropertyType>(InstanceType instance, string propertyName)
+        public static ExpressionGetSetHandle<InstanceType, PropertyType> CreatePropertyExpress<InstanceType, PropertyType>(InstanceType instance, string propertyName)
         {
             var rInstanceTypeFullName = typeof(InstanceType).FullName;
             var rPropertTypeFullName = typeof(PropertyType).FullName;

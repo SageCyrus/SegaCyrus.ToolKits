@@ -21,7 +21,7 @@ namespace SegaCyrus.ToolKits.MSTest.Kit
                 typeof(TestModels.ReflectSample), nameof(TestModels.ReflectSample.InstanceField));
 
             Assert.IsNotNull(model);
-            Assert.AreEqual(nameof(TestModels.ReflectSample.InstanceField), model.FieldName);
+            Assert.AreEqual(nameof(TestModels.ReflectSample.InstanceField), model.Name);
             Assert.IsNotNull(model.Set);
             Assert.IsNotNull(model.Get);
 
@@ -82,7 +82,7 @@ namespace SegaCyrus.ToolKits.MSTest.Kit
                 typeof(TestModels.ReflectSample), nameof(TestModels.ReflectSample.Number));
 
             Assert.IsNotNull(model);
-            Assert.AreEqual(nameof(TestModels.ReflectSample.Number), model.FieldName);
+            Assert.AreEqual(nameof(TestModels.ReflectSample.Number), model.Name);
 
             var sample = new TestModels.ReflectSample();
             model.Set(sample, 66);
@@ -127,7 +127,7 @@ namespace SegaCyrus.ToolKits.MSTest.Kit
         [TestMethod]
         public void ExpressionGetSetModel_IsPublicWithReadonlyMembers()
         {
-            var t = typeof(ExpressionGetSetModel<TestModels.ReflectSample, int>);
+            var t = typeof(ExpressionGetSetHandle<TestModels.ReflectSample, int>);
             Assert.IsTrue(t.IsPublic);
             Assert.IsNotNull(t.GetField("FieldName"));
             Assert.IsNotNull(t.GetField("Set"));
