@@ -7,12 +7,21 @@ namespace SegaCyrus.ToolKits.Model.Expression
     /// </summary>
     /// <typeparam name="InstanceType">实例类型</typeparam>
     /// <typeparam name="TargetType">操作属性/字段类型</typeparam>
-    public class ExpressionGetSetModel<InstanceType, TargetType>
+    public class ExpressionGetSetHandle<InstanceType, TargetType>
     {
+
         /// <summary>
         /// 操作属性/字段名
         /// </summary>
-        public readonly string FieldName;
+        public readonly string Name;
+        /// <summary>
+        /// 存在赋值器
+        /// </summary>
+        public readonly bool ExistSetHandle;
+        /// <summary>
+        /// 存在取值器
+        /// </summary>
+        public readonly bool ExistGetHandle;
         /// <summary>
         /// 给对应属性/字段赋值
         /// </summary>
@@ -25,14 +34,18 @@ namespace SegaCyrus.ToolKits.Model.Expression
         /// <summary>
         /// 全参构造函数
         /// </summary>
-        /// <param name="fieldName"></param>
+        /// <param name="name"></param>
         /// <param name="settter"></param>
         /// <param name="getter"></param>
-        internal ExpressionGetSetModel(string fieldName, Action<InstanceType, TargetType> settter, Func<InstanceType, TargetType> getter)
+        /// <param name="existGet"></param>
+        /// <param name="existSet"></param>
+        internal ExpressionGetSetHandle(string name, Action<InstanceType, TargetType> settter, bool existSet, Func<InstanceType, TargetType> getter, bool existGet)
         {
-            FieldName = fieldName;
+            Name = name;
             Set = settter;
             Get = getter;
+            ExistSetHandle = existSet;
+            ExistGetHandle = existGet;
         }
     }
 }

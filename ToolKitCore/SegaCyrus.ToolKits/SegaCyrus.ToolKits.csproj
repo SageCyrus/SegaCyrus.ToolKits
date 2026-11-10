@@ -17,7 +17,7 @@
         <SignAssembly>False</SignAssembly>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-        <Version>1.0.1</Version>
+        <Version>1.0.3</Version>
         <Title>ToolKit</Title>
         <Description>ToolKit Package</Description>
         <Copyright>SegaCyrus</Copyright>
